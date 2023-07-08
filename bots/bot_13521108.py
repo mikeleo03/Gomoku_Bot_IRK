@@ -5,7 +5,7 @@ class Bot13521108(object):
     Bot player 13521108
     """
     # Ide solusi yang dibangun terinspirasi dari solusi bot Galaxio
-    # Thanks to my team, 2B1Reuni!
+    # Thanks to my team, 2B1Reuni! :)
 
     def __init__(self):
         self.player = None
