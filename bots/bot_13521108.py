@@ -24,7 +24,6 @@ class Bot13521108(object):
         except Exception as e:
             move = -1
         if move == -1 or move not in board.availables:
-            print("invalid move")
             move = self.get_action(board)
         return move
 
@@ -266,29 +265,23 @@ class Bot13521108(object):
                 if (self.mult == 1):
                     x = koord_x
                     y = koord_y
-                    print("triggered1-max-1-1")
                     return f"{x},{y}"
                 else :
-                    print("triggered2-max-1-1")
                     return f"{x},{y}"
             else:
                 if (self.mult == 1):
-                    print("triggered1-max-1-2")
                     return f"{x},{y}"
                 else :
                     x = koord_x
                     y = koord_y
-                    print("triggered2-max-1-2")
                     return f"{x},{y}"
         # 2. Kalo nilai botnya doang, gasin juga
         elif (maxBotScore == 5):
-            print("triggered1-max-2")
             return f"{x},{y}"
         # 3. Kalo nilai oppnya doang, larang keras
         elif (maxOppScore == 5):
             x = koord_x
             y = koord_y
-            print("triggered2-max-2")
             return f"{x},{y}"
         
         # 4. Cek kemungkinan 3 keserobot, cek dalam next if
@@ -297,33 +290,27 @@ class Bot13521108(object):
                 for j in range (board.width):
                     if (matres1[i][j] == 3):
                         if (self.is3arroundmatres(i, j, matres1)):
-                            print("keluarin ajh-1", i, j)
                             return f"{i},{j}"
         # 5. Kalo 2 2 nya 4, liat selisihnya, utamain yang lebih bisa diperjuangkan
         elif ((maxBotScore == 4) and (maxOppScore == 4)):
             if (self.is4arround(x, y, board)):
-                print("triggered1-min-1")
                 return f"{x},{y}"
             else :
                 if (abs(count1 - count2) <= 2):
                     x = koord_x
                     y = koord_y
-                    print("triggered2-min")
                     return f"{x},{y}"
                 else :
-                    print("triggered1-min-2")
                     return f"{x},{y}"
         # 6. Kalo cuma botnya doang, gasin dulu
         elif (maxBotScore >= 4 and self.mult == -1):
-            print("triggered1")
             return f"{x},{y}"
         # 7. Hal yang sama cuma ini kalo dari sudut lain
         elif (maxOppScore >= 4 and self.mult == 1):
             x = koord_x
             y = koord_y
-            print("triggered2")
             return f"{x},{y}"
             
         # 8. Hasil eksekusi terakhir -- normal
         return f"{x},{y}"
-                    
+    

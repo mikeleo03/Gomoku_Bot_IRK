@@ -11,8 +11,6 @@ from __future__ import print_function
 from game import Board, Game
 from human import Human
 from bots.bot_13521108 import Bot13521108
-from randombot import Bot13521xxx
-from bot_13521108Old import Bot13521108Old
 
 def run():
     n = 5
@@ -21,13 +19,10 @@ def run():
         board = Board(width=width, height=height, n_in_row=n)
         game = Game(board)
 
-        """
-            TODO: Ganti isi variabel player menjadi bot mu
-        """
-        player1 = Bot13521108Old()
-        player2 = Bot13521108()
+        player1 = Bot13521108()
+        player2 = Human()
 
-        winner = game.start_play(player1, player2, start_player=0, is_shown=1)
+        winner = game.start_play(player1, player2, start_player=1, is_shown=1)
         print("SELAMAT KEPADA: ", winner)
     except KeyboardInterrupt:
         print('\n\rquit')
