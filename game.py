@@ -5,6 +5,8 @@
 
 from __future__ import print_function
 import numpy as np
+import threading
+import globals as globals
 
 
 class Board(object):
@@ -155,8 +157,36 @@ class Game(object):
             current_player = self.board.get_current_player()
             player_in_turn = players[current_player]
 
-            move = player_in_turn.get_action(self.board)
+            try:
+                ret = []
+                globals.initialize()
+                t = threading.Thread(target=player_in_turn.get_action, args=(self.board,ret))
 
+                t.start()
+
+                # 3 Seconds timeout
+                t.join(3)
+
+                # If thread is still active
+                if t.is_alive():
+                    print("Timeout execeeded. Considered as lose")
+
+                    # Terminate - may not work if process is stuck for good
+                    globals.stop_threads = True
+                    # OR Kill - will work for sure, no chance for process to finish nicely however
+                    # t.kill()
+
+                    t.join()
+
+                move = ret[0]
+            except:
+                if current_player == 1:
+                    print("Game end. Winner is", players[2])
+                    return 2
+                elif current_player == 2:
+                    print("Game end. Winner is", players[1])
+                    return 1
+                
             location = self.board.move_to_location(move)
             print(player_in_turn, f"choose: ({location[0]},{location[1]})", end="\n\n")
             

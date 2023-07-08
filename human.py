@@ -1,3 +1,5 @@
+import globals as globals
+
 class Human(object):
     """
     human player
@@ -13,18 +15,27 @@ class Human(object):
         location = input("Your move: ")
         return location
         
-    def get_action(self, board):
-        location = self.get_input()
+    def get_action(self, board, return_var):
+
         try:
+            location = self.get_input(board)
             if isinstance(location, str):  # for python3
                 location = [int(n, 10) for n in location.split(",")]
             move = board.location_to_move(location)
         except Exception as e:
             move = -1
-        if move == -1 or move not in board.availables:
-            print("invalid move")
-            move = self.get_action(board)
-        return move
+
+        while move == -1 or move not in board.availables:
+            if globals.stop_threads:
+                return
+            try:
+                location = self.get_input(board)
+                if isinstance(location, str):  # for python3
+                    location = [int(n, 10) for n in location.split(",")]
+                move = board.location_to_move(location)
+            except Exception as e:
+                move = -1
+        return_var.append(move) 
 
     def __str__(self):
         return "Human {}".format(self.player)

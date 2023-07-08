@@ -10,7 +10,7 @@ Dimodifikasi untuk kepentingan seleksi Asisten'21 Laboratorium IRK STEI ITB
 from __future__ import print_function
 from game import Board, Game
 from human import Human
-from bots.bot_13521108 import Bot13521108
+from bots.Bot13521108 import Bot13521108
 
 def run():
     n = 5
@@ -18,9 +18,9 @@ def run():
     try:
         board = Board(width=width, height=height, n_in_row=n)
         game = Game(board)
-
+        
         player1 = Bot13521108()
-        player2 = Human()
+        player2 = Bot13521108()
 
         winner = game.start_play(player1, player2, start_player=1, is_shown=1)
         print("SELAMAT KEPADA: ", winner)
